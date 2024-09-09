@@ -1,5 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
+import { CurrentUser } from './auth/decorators/current-user.decorator';
+import { User } from './user/entities/user.entity';
 
 @Controller()
 export class AppController {
@@ -8,5 +10,11 @@ export class AppController {
   @Get()
   getHello(): string {
     return this.appService.getHello();
+  }
+
+  // retonar o usuário
+  @Get('me')
+  getMe(@CurrentUser() user: User) {
+    return user;
   }
 }
